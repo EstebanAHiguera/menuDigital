@@ -50,8 +50,11 @@ export default function CartSheet({ isOpen, onClose }) {
           <>
             {cartLines.map(item => (
               <div key={item.id} className="flex items-center gap-2.5 px-4 py-3 border-b border-[#2A2A2A]">
-                <div className="text-3xl w-12 h-12 bg-[#2A2A2A] rounded-xl flex items-center justify-center flex-shrink-0">
-                  {item.emoji}
+                <div className="w-12 h-12 bg-[#2A2A2A] rounded-xl flex-shrink-0 overflow-hidden">
+                  <img src={item.image || '/images/default.png'} 
+                  alt={item.name} 
+                  className="w-full h-full object-cover"
+                    onError={(e) => (e.target.src = '/images/default.png')} />
                 </div>
                 
                 <div className="flex-1">

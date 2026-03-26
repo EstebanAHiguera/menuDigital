@@ -1,40 +1,68 @@
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { fmt } from '../../utils/fmt';
-import { CATEGORIES, EMOJIS } from '../../Data/Products';
+import { CATEGORIES } from '../../Data/Products';
 
-const EMPTY_FORM = { name: '', desc: '', price: '', emoji: '🍞', category: 'garullas', badge: '' };
+const EMPTY_FORM = { name: '', desc: '', price: '', image: '', category: 'garullas', badge: '' };
 
 function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
   const [form, setForm] = useState(initial);
-  const [showEmojis, setShowEmojis] = useState(false);
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
 
   const inputCls = "w-full bg-[#2A2A2A] border border-[#3A3A3A] rounded-xl px-3 py-2.5 text-white text-sm font-semibold outline-none focus:border-[#F5C800] transition-colors";
   const labelCls = "text-white/50 text-xs font-bold uppercase tracking-wide mb-1 block";
 
   return (
-    <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-4">
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <div className="col-span-2">
-          <label className={labelCls}>Emoji</label>
-          <div className="relative">
-            <button onClick={() => setShowEmojis(e => !e)}
-              className="w-full bg-[#2A2A2A] border border-[#3A3A3A] rounded-xl px-3 py-2.5 text-left text-2xl cursor-pointer">
-              {form.emoji}
-            </button>
-            {showEmojis && (
-              <div className="absolute top-full left-0 mt-1 bg-[#1A1A1A] border border-[#2A2A2A] rounded-xl p-2 z-10 flex flex-wrap gap-1 w-full">
-                {EMOJIS.map(e => (
-                  <button key={e} onClick={() => { set('emoji', e); setShowEmojis(false); }}
-                    className="text-xl w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#2A2A2A] cursor-pointer bg-transparent border-none">
-                    {e}
-                  </button>
-                ))}
-              </div>
-            )}
+ <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-4">
+    <div className="grid grid-cols-2 gap-3 mb-3">
+
+      {/* 🖼️ CAMPO IMAGEN */}
+      <div className="col-span-2">
+        <label className={labelCls}>Imagen</label>
+        
+        {/* Preview */}
+        {form.image && (
+          <div className="w-full h-32 bg-[#2A2A2A] rounded-xl overflow-hidden mb-2">
+            <img
+              src={form.image}
+              alt="preview"
+              className="w-full h-full object-cover"
+              onError={e => { e.target.style.display = 'none'; }}
+            />
           </div>
-        </div>
+        )}
+
+        {/* Botón seleccionar archivo */}
+        <label className="w-full flex items-center justify-center gap-2 bg-[#2A2A2A] border border-dashed border-[#3A3A3A] hover:border-[#F5C800] rounded-xl py-3 cursor-pointer transition-colors group">
+          <span className="text-lg">🖼️</span>
+          <span className="text-white/50 group-hover:text-white/80 text-sm font-semibold transition-colors">
+            {form.image ? 'Cambiar imagen' : 'Seleccionar imagen'}
+          </span>
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={e => {
+              const file = e.target.files[0];
+              if (!file) return;
+
+              const imagePath = `/images/${file.name}`; // 🔥 SOLO RUTA
+              set('image', imagePath);
+            }}
+          />
+        </label>
+
+        {/* Quitar imagen */}
+        {form.image && (
+          <button
+            onClick={() => set('image', '')}
+            className="mt-1.5 text-[#D81B1B] text-xs font-bold bg-transparent border-none cursor-pointer w-full text-center"
+          >
+            × Quitar imagen
+          </button>
+        )}
+      </div>
+ 
 
         <div className="col-span-2">
           <label className={labelCls}>Nombre del producto</label>
@@ -93,7 +121,12 @@ function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
 function ProductRow({ product, onEdit, onDelete, onToggle }) {
   return (
     <div className={`bg-[#1A1A1A] border rounded-xl px-3 py-2.5 flex items-center gap-3 transition-all ${!product.available ? 'opacity-40' : ''} border-[#2A2A2A]`}>
-      <span className="text-2xl w-9 h-9 bg-[#2A2A2A] rounded-lg flex items-center justify-center flex-shrink-0">{product.emoji}</span>
+         <img
+          src={product.image || '/images/default.png'}
+          alt={product.name}
+          className="w-9 h-9 rounded-lg object-cover flex-shrink-0"
+          onError={(e) => (e.target.src = '/images/default.png')}
+        />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="font-bold text-white text-sm truncate">{product.name}</span>

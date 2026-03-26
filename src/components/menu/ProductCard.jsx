@@ -10,8 +10,15 @@ export default function ProductCard({ product }) {
   return (
     <div className={`bg-[#1A1A1A] rounded-2xl overflow-hidden flex flex-col transition-all
       ${qty > 0 ? 'border-2 border-[#F5C800]' : 'border border-[#2A2A2A]'}`}>      
-      <div className="bg-[#2A2A2A] aspect-square flex items-center justify-center text-5xl relative">
-        {product.emoji}
+     <div className="bg-[#2A2A2A] aspect-square relative overflow-hidden">
+        
+        <img
+          src={product.image || '/images/default.png'}
+          alt={product.name}
+          className="w-full h-full object-cover absolute top-0 left-0"
+          onError={(e) => (e.target.src = '/images/default.png')}
+        />
+
         {qty > 0 && (
           <span className="absolute top-2 right-2 bg-[#F5C800] text-[#0D0D0D] text-xs font-black w-6 h-6 rounded-full flex items-center justify-center">
             {qty}
