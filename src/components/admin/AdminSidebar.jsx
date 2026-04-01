@@ -26,7 +26,7 @@ export default function AdminSidebar({ active, onChange }) {
               onClick={() => onChange(item.id)}
               className={`flex items-center gap-3 mt-2 px-3 py-2.5 border-t border-[#2A2A2A] rounded-xl text-sm font-bold text-left w-full border-none cursor-pointer transition-all
                 ${active === item.id
-                  ? ' bg-[#48581b98] text-[#0D0D0D] '
+                  ? ' bg-[#48581b98] text-amber-900 '
                 : 'bg-[#6F7F4F] text-amber-100 hover:text-white/50 hover:bg-[#85965F] '}`}
             >
               <span className="text-base">{item.icon}</span>
@@ -51,13 +51,13 @@ export default function AdminSidebar({ active, onChange }) {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-amber-100 border-t-2 border-[#85965F] flex z-50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-amber-100 border-t-2 border-[#2A2A2A] flex z-50">
         {NAV.map(item => (
           <button
             key={item.id}
             onClick={() => onChange(item.id)}
-            className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-[9px] font-bold bg-transparent border-none cursor-pointer transition-all
-              ${active === item.id ? 'text-[#F5C800]' : 'text-white/30'}`}
+            className={`flex-1 flex flex-col items-center justify-center m-1 gap-0.5 text-[9px] rounded-xl font-bold bg-[#6F7F4F]  border border-[#2A2A2A] cursor-pointer hover:text-white/50 transition-colors
+              ${active === item.id ? 'text-amber-900 bg-[#48581b98]'  : 'text-amber-100'}`}
           >
             <span className="text-lg relative">
               {item.icon}
@@ -72,7 +72,7 @@ export default function AdminSidebar({ active, onChange }) {
         ))}
         <button
           onClick={() => onChange('menu')}
-          className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5 text-[9px] font-bold bg-transparent border-none cursor-pointer text-white/30"
+          className="flex-1 flex flex-col items-center justify-center mr-1 ml-1 mt-1 mb-1 py-2 gap-0.5 text-[9px] font-bold bg-[#6F7F4F] rounded-xl border border-[#2A2A2A] cursor-pointer text-amber-100 hover:text-white/50 transition-colors"
         >
           <span className="text-lg">👁️</span>
           Menú

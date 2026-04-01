@@ -31,6 +31,6 @@ export const ORDER_STATUSES = [
   { id: 'pendiente',   label: 'Pendiente',      color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' },
   { id: 'preparacion', label: 'En preparación', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' },
   { id: 'listo',       label: 'Listo',           color: 'bg-green-500/20 text-green-400 border-green-500/30' },
-  { id: 'entregado',   label: 'Entregado',       color: 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30' },
+  { id: 'entregado',   label: 'Entregado',       color: 'bg-[#6f7f4f]/40 text-[#6f7f4f] border-zinc-500/30' },
 ];
 

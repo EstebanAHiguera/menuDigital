@@ -31,7 +31,7 @@ function OrderCard({ order, onStatusChange, onDelete }) {
         <div className="flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-black text-[#2A2A2A] text-sm">#{order.number}</span>
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${statusInfo?.color}`}>
+            <span className={`text-[10px] font-bold  px-2 py-0.5 rounded-full border ${statusInfo?.color}`}>
               {statusInfo?.label}
             </span>
           </div>

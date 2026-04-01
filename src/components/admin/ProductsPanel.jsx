@@ -9,11 +9,11 @@ function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
   const [form, setForm] = useState(initial);
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
 
-  const inputCls = "w-full bg-[#2A2A2A] border border-[#3A3A3A] rounded-xl px-3 py-2.5 text-white text-sm font-semibold outline-none focus:border-[#F5C800] transition-colors";
-  const labelCls = "text-white/50 text-xs font-bold uppercase tracking-wide mb-1 block";
+  const inputCls = "w-full bg-amber-100 border border-[#6F7F4F] rounded-xl px-3 py-2.5 text-[#2a2a2a] text-sm font-semibold outline-none focus:border-[#85965F] transition-colors";
+  const labelCls = "text-amber-100 text-xs font-bold uppercase tracking-wide mb-1 block";
 
   return (
- <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-4">
+ <div className="bg-[#1A1A1A]/80 border border-amber-100 rounded-2xl p-4">
     <div className="grid grid-cols-2 gap-3 mb-3">
 
       {/* 🖼️ CAMPO IMAGEN */}
@@ -33,9 +33,9 @@ function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
         )}
 
         {/* Botón seleccionar archivo */}
-        <label className="w-full flex items-center justify-center gap-2 bg-[#2A2A2A] border border-dashed border-[#3A3A3A] hover:border-[#F5C800] rounded-xl py-3 cursor-pointer transition-colors group">
+        <label className="w-full flex items-center justify-center gap-2 bg-amber-100 border border-dashed border-[#6f7f4f] hover:border-amber-900 rounded-xl py-3 cursor-pointer transition-colors group">
           <span className="text-lg">🖼️</span>
-          <span className="text-white/50 group-hover:text-white/80 text-sm font-semibold transition-colors">
+          <span className="text-[#2A2A2A] group-hover:text-amber-900 text-sm font-semibold transition-colors">
             {form.image ? 'Cambiar imagen' : 'Seleccionar imagen'}
           </span>
           <input
@@ -81,7 +81,7 @@ function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
 
         <div>
           <label className={labelCls}>Categoría</label>
-          <select className={inputCls} value={form.category} onChange={e => set('category', e.target.value)} style={{ backgroundColor: '#2A2A2A' }}>
+          <select className={inputCls} value={form.category} onChange={e => set('category', e.target.value)} style={{ background: 'amber-100' }}>
             {CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
         </div>
@@ -93,8 +93,8 @@ function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
               <button key={b} onClick={() => set('badge', b)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold border cursor-pointer transition-all
                   ${form.badge === b
-                    ? b === 'popular' ? 'bg-[#D81B1B] text-white border-[#D81B1B]'
-                    : b === 'nuevo'   ? 'bg-[#F5C800] text-[#0D0D0D] border-[#F5C800]'
+                    ? b === 'popular' ? 'bg-amber-900/60 text-amber-100 border-amber-100'
+                    : b === 'nuevo'   ? 'bg-green-700/30 text-amber-100 border-amber-100'
                     : 'bg-white/10 text-white border-white/20'
                     : 'bg-transparent text-white/30 border-[#2A2A2A]'}`}>
                 {b === '' ? 'Sin badge' : b.charAt(0).toUpperCase() + b.slice(1)}
@@ -106,11 +106,11 @@ function ProductForm({ initial = EMPTY_FORM, onSave, onCancel }) {
 
       <div className="flex gap-2 mt-2">
         <button onClick={() => { if (!form.name.trim() || !form.price) return; onSave({ ...form, price: Number(form.price) }); }}
-          className="flex-1 py-2.5 bg-[#F5C800] text-[#0D0D0D] rounded-xl font-black text-sm border-none cursor-pointer active:scale-95 transition-transform">
+          className="flex-1 py-2.5 bg-[#6F7F4F] text-amber-100 rounded-xl font-black text-sm border border-amber-100 cursor-pointer active:scale-95 transition-transform">
           Guardar
         </button>
         <button onClick={onCancel}
-          className="py-2.5 px-4 bg-transparent text-white/40 rounded-xl font-bold text-sm border border-[#2A2A2A] cursor-pointer">
+          className="py-2.5 px-4 bg-amber-100/60 text-amber-900 rounded-xl font-bold text-sm border border-amber-900 cursor-pointer">
           Cancelar
         </button>
       </div>
@@ -132,7 +132,7 @@ function ProductRow({ product, onEdit, onDelete, onToggle }) {
           <span className="font-bold text-[#2A2A2A] text-sm truncate">{product.name}</span>
           {product.badge && (
             <span className={`text-[9px] font-black px-1.5 py-0.5 rounded uppercase flex-shrink-0
-              ${product.badge === 'popular' ? 'bg-amber-900 text-amber-100' : 'bg-green-700/50 text-[#0D0D0D]'}`}>
+              ${product.badge === 'popular' ? 'bg-amber-900/60 text-amber-100 border-amber-900' : 'bg-green-700/80 text-amber-100 border-amber-100'}`}>
               {product.badge}
             </span>
           )}
@@ -202,13 +202,13 @@ export default function ProductsPanel() {
       <div className="flex gap-2 overflow-x-auto mb-4 pb-1">
         <button onClick={() => setFilterCat('all')}
           className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-bold border cursor-pointer transition-all
-            ${filterCat === 'all' ? 'bg-[#F5C800] text-[#0D0D0D] border-[#F5C800]' : 'bg-transparent text-white/40 border-[#2A2A2A]'}`}>
+            ${filterCat === 'all' ? 'bg-[#D4A373] text-[#0D0D0D] border-[#2A2A2A]' : 'bg-transparent text-amber-100 border-[#2A2A2A]'}`}>
           Todos ({products.length})
         </button>
         {CATEGORIES.map(c => (
           <button key={c.id} onClick={() => setFilterCat(c.id)}
             className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-bold border cursor-pointer transition-all
-              ${filterCat === c.id ? 'bg-[#F5C800] text-[#0D0D0D] border-[#F5C800]' : 'bg-transparent text-white/40 border-[#2A2A2A]'}`}>
+              ${filterCat === c.id ? 'bg-[#D4A373] text-[#0D0D0D] border-[#2A2A2A]' : 'bg-transparent text-amber-100 border-[#2A2A2A]'}`}>
             {c.label} ({products.filter(p => p.category === c.id).length})
           </button>
         ))}
@@ -216,7 +216,7 @@ export default function ProductsPanel() {
 
       <div className="flex flex-col gap-2">
         {filtered.length === 0 ? (
-          <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-2xl p-8 text-center text-white/30">
+          <div className="bg-amber-100 border border-[#2A2A2A] rounded-2xl p-8 text-center text-[#2A2A2A]">
             <p className="text-3xl mb-2">📭</p>
             <p className="text-sm">Sin productos{search ? ` con "${search}"` : ''}</p>
           </div>
